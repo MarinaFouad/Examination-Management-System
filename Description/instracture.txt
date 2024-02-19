@@ -1,0 +1,124 @@
+# All Functions, Stored Procedures, Views in a dbo Schema 
+# For all the following Functions, Stored Procedures, Views, 
+##    the system always check if the logged user has the access to reach to info whether Exams, Question, etc ...
+# The login-ed user must be a user to use these Functions, Stored Procedures, Views.
+
+
+Functions 
+    GetUserID
+        Find the ID of the user whose email 
+            is the same as the current user name
+        @return an integer
+    
+    InshasCourse
+        @ins_id int: Instractor ID
+        @course_id int: Course ID
+        Check if the instractor has the course wit `course_id`
+        @return a bit {True | False}
+    
+    GetQuesByCourID
+        @course_id int: Course ID
+        Get all Question main data of all Exams 
+        that belongs to the Course
+        @return a Table as Question Id, Question Body, Points, Correct Answer
+    
+    GetQuestion 
+        @id int: Question ID
+        Get the detailt data of Question
+        @return a Table as Question Id, Question Body, 
+            Points, Correct Answer, Options 
+
+Stored Procedures
+    ShowQuestions
+        @course_name: Course Name NVARCHAR(20)
+        Show Questions of all Exams of all Courses 
+        that teached by The Instracture
+    
+    AddQuesToExam
+        @exam_id: Exam ID INT
+        @ques_id: Question ID INT
+        Assign Question to Exam, and in case the `ques_id` is null
+        The System Select Question Randomly
+    
+    CreataQuestion
+        Question Data
+        @ques_header NVARCHAR(2000), @point INT,
+		@correct_ans NVARCHAR(2000), @options NVARCHAR(4000)
+        Add new Question to pool
+    
+    CreateExam
+        Exam Data
+        @st_time TIME, @end_time TIME, @date DATE,
+		@type BIT, @intake INT,
+		@allow_opt NVARCHAR(1000), @course_id INT
+        Add new Exam to Course
+    
+    AddStudentToExam
+        @student_id: Student ID INT
+        @exam_id: Exam ID INT
+        Instracture select Student and add him to Exam
+    
+    DeleteQuesFromExam
+        @exam_id: Exam ID  INT
+        @ques_id: Question ID  INT
+        Delete Question from Exam
+    
+    UpdateQuesExam
+        Old and New IDs
+        @exam_id INT, @ques_id INT,
+		@new_exam_id INT, @new_ques_id INT
+        Re-assign Question to other Exam
+
+    RmStudentExam 
+        @exam_id: Exam ID INT
+        @student_id: Stuent ID INT
+        Remove Student from the Exam
+    
+    GetStudentAnswers
+        @exam_id: Exam ID INT
+        @student_id: Stuent ID INT
+        Show Answers to Instracture to correct them
+
+Views
+    GetMyData
+        Show all Instracure data as 
+        Instracture ID, Name, Email, Password, isManager 
+    
+    GetMyCourses
+        Show all courses data of the instracture as 
+        Course Id, Course Name, Course Description, 
+        Correct Answer, Points
+ 
+    GetAllExams
+        Show all exams dataof the instracture as
+        Exam Id, Date, StartTime, EndTime, Type, 
+        Degree, Intake, AllowOptions
+    
+    GeNumCourses
+        Show number of courses that instracture teach
+
+Triggers
+    Content.UpExdeg 
+        on table Content.Ex_has_Ques, that ensure that
+        the degree of exam doesn't exceed the max degree of
+        its course after ading the question to it,
+        in case the degree is exceeded the transaction will be denated
+
+    Content.StuEx 
+        on table Content.Stu_enrol_ex, that ensure that
+        the Student and Exam in the same Intake,
+        in case the degree is exceeded the transaction will be denated
+
+    Content.DeExDeg 
+        on table Content.Ex_has_Ques, that ensure that
+        the degree of exam doesn't exceed the min degree of
+        its course after remove the question from it,
+        in case the degree is exceeded the transaction will be denated
+
+    Content.ChExDeg 
+        on table Content.Ex_has_Ques, that ensure that
+        the degree of exam doesn't exceed the min and max degree of
+        its course after updating the question from it,
+        and updating the exam degree 
+        in case the degree is exceeded the transaction will be denated
+    

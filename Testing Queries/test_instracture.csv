@@ -1,0 +1,81 @@
+		EXEC [dbo].[ShowQuestions] 'OOP';	
+QID	Question	Point	CorrectAns
+2	What is a Class	50	is an strcture to store data
+3	Is Object class	10	No
+5	Lets check	0	Yes
+12	What is a Programming	10	Programming is a language that are understood by computer
+			
+			
+		"EXEC dbo.AddQuesToExam 2,15"	
+			
+	(4 rows affected)		
+			
+	(1 row affected)		
+			
+	(1 row affected)		
+			
+			
+"EXEC dbo.CreataQuestion 'Type of Errors in Progemming Language',10, 'All', 
+			'before run,during run,All'"			
+			
+	(4 rows affected)		
+			
+	(1 row affected)		
+			
+	(1 row affected)		
+			
+			
+"EXEC dbo.CreataQuestion 'What is a Programming',10, 'Programming is a language that are understood by computer'"			
+			
+			
+			
+	(1 row affected)		
+			
+			
+			
+			
+"EXEC dbo.CreateExam '17:05', '18:5', '02-01-2024', 0, 5, 'Null', 1  
+Go"			
+			
+			
+			
+	(1 row affected)		
+			
+			
+			
+			
+"EXEC dbo.AddStudentToExam 1, 2
+Go"			
+			
+			
+			
+	(1 row affected)		
+			
+			
+			
+			
+"EXEC dbo.CreataQuestion 'What is a Programming',10, 'Programming is a language that are understood by computer'"			
+			
+			
+			
+	(1 row affected)		
+			
+			
+			
+			
+"EXEC dbo.CreataQuestion 'What is a Programming',10, 'Programming is a language that are understood by computer'"			
+			
+			
+			
+	(1 row affected)		
+			
+			
+			
+			
+"EXEC dbo.CreataQuestion 'What is a Programming',10, 'Programming is a language that are understood by computer'"			
+			
+			
+			
+	(1 row affected)		
+			
+			

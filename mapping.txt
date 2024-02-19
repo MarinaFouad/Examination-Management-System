@@ -1,0 +1,98 @@
+* Person
+    ID PK
+    Name 
+    Email  
+    Password
+
+* Student 
+    StuID (Person)FK PK
+    BranID (Beanch)FK
+    DepID (Department)FK
+    TrackID (Track)FK
+    Intake
+
+
+* Exam 
+    ExamID PK
+    Degree
+    StartTime
+    EndTime
+    AllowOptions
+    Date
+    Type 
+    Intake
+    CourseID (Course)FK
+
+* Stu_enrol_ex 
+    StuID  (Student)FK  __
+                          |   PK
+    ExamID (Exam)FK     __|
+
+* Question 
+    QID PK
+    QuesType
+    QuestionBody
+    Point
+    CorrectAns
+* MultQues
+    QID (Question)FK PK
+* ChMultQues 
+   QID (Question)FK PK
+   Option
+
+* Ex_has_Ques 
+    ExamID (Exam)FK   __
+                        |  PK
+    QID (Question)FK  __|
+
+* Stu_ans_Que_Ex 
+    StuID (Student)FK  __
+    ExamID (Exam)FK      | PK
+    QID FK             __
+    StuAns
+    Result
+
+* Course
+    CourseID PK
+    CourseName
+    Description
+    MaxDegree
+    MinDegree
+    Duration
+
+* Instractor 
+    InsID (Person)FK PK
+    IsManger
+
+# Removed #
+# * Inst_teach_cour
+#     CourseID (Course)FK --
+#                    |         PK
+#      InsID (Instractor)FK   --
+
+* Class 
+    ClassID PK
+    ClassName 
+
+Inst_teach_cour_in_class
+    CourseID (Course)FK   --      
+    InsID (Instractor)FK        |     PK
+    ClsID (Class)FK        |
+    EnrolledYear ---  
+
+* Branch
+    BranID PK
+    BranName 
+
+* Department
+    DepID PK
+    DepName 
+
+* Track
+    TraID PK
+    TraName 
+
+* Bran_has_Dep_has_Track
+    BranID (Branch)FK     --
+    DepID (Department)FK       |    PK
+    TraID (Track)FK      --

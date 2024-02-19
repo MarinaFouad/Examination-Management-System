@@ -1,0 +1,24 @@
+views :
+
+StudentInfo --> to see all the students info 
+Student_Exam_Result --> to see all the student Exam results
+StudentExam --> to view student answer and the correct answer 
+
+
+proc :
+
+ 
+View_My_info_Result --> to view a spciefic student info with his ID
+View_My_Exam_Result --> to view a spciefic student Exam results with his ID
+View_My_Exam_Answer --> to view a spciefic student answer and the correct answer with his ID
+Searching --> to search with searchCategory or CourseName 
+StudentExam --> to give student access to the exam 
+AnswerQuestion --> student insert his answer 
+StudentUpdate --> student update his info 
+
+
+trigger : 
+
+MarkTheQuestion --> calculate the correct answers and update Content.Stu_ans_Que_Ex result column
+
+updateInfo --> to update student info in login 

@@ -1,0 +1,239 @@
+First Insert Procedures
+-----------------------
+1. **InsertStudent Procedure:**
+   - **Parameters:**
+     - @StuID INT
+     - @BranID INT
+     - @DepID INT
+     - @TrackID INT
+     - @INTake INT
+   - **Functionality:**
+     - Inserts a new student record into the Person.Student table.
+     - Verifies the existence of specified branch, department, and track IDs before performing the insertion.
+     - This procedure is invoked within the InsertPerson Procedure, deriving its parameters from the latter.
+
+2. **InsertInstructor Procedure:**
+   - **Parameters:**
+     - @InsID INT
+   - **Functionality:**
+     - Inserts a new instructor into the Person.Instructor table.
+     - Sets IsManager to 0 (indicating non-manager status).
+     - This procedure is invoked within the InsertPerson Procedure, deriving its parameters from the latter.
+
+3. **InsertPerson Procedure:**
+   - **Parameters:**
+     - @ManagerId INT
+     - @Status NVARCHAR(12)
+     - @Name NVARCHAR(12)
+     - @Email NVARCHAR(12)
+     - @Password NVARCHAR(20)
+     - @StuID INT = NULL
+     - @InsID INT = NULL
+     - @BranID INT = NULL
+     - @DepID INT = NULL
+     - @TrackID INT = NULL
+     - @INTake INT = NULL
+   - **Functionality:**
+     - Inserts a new individual (either a student or an instructor) into the Person.Person table.
+     - Based on the provided status ('Student' or 'Instructor'), triggers the corresponding insertion procedures.
+     - Note: Not all parameters need to be populated with null values; the parameters to be filled depend on the value of the @Status parameter.
+
+4. **InsertCourse Procedure:**
+   - **Parameters:**
+     - @ManagerId INT
+     - @CourseName NVARCHAR(20)
+     - @Description TEXT
+     - @MaxDegree INT
+     - @MinDegree INT
+     - @Duration INT
+   - **Functionality:**
+     - Inserts a new course into the Content.Course table.
+     - Checks if the manager (instructor) is authorized before insertion.
+
+5. **InsertClass Procedure:**
+   - **Parameters:**
+     - @ManagerId INT
+     - @ClassName NVARCHAR(10)
+   - **Functionality:**
+     - Inserts a new class into the Content.Class table.
+     - Checks if the manager (instructor) is authorized before insertion.
+
+6. **Insert_Instructor_Course_In_Class Procedure:**
+   - **Parameters:**
+     - @ManagerId INT
+     - @ClassID INT
+     - @CourseID INT
+     - @InsID INT
+     - @EnrolledYear INT
+   - **Functionality:**
+     - Inserts a record into the Content.Inst_teach_cour_in_class table, indicating an instructor teaching a course in a class.
+     - Checks if the manager (instructor) is authorized and specified IDs exist before insertion.
+
+7. **InsertData Procedure:**
+   - **Parameters:**
+     - @ManagerId INT
+     - @InsertType NVARCHAR(50)
+     - @BranName NVARCHAR(10) = NULL
+     - @DepName NVARCHAR(10) = NULL
+     - @TraName NVARCHAR(10) = NULL
+     - @BranID INT = NULL
+     - @DepID INT = NULL
+     - @TraID INT = NULL
+   - **Functionality:**
+     - Inserts data into specific General tables (Branch, Department, Track, Bran_has_Dep_has_Track) based on the provided InsertType.
+     - Validates the authorization of the manager (instructor) before performing the insertion.
+     - Certain parameters are optional and can be left as null, depending on the value of the @InsertType parameter.
+
+----------------------
+Seond Update Procedures
+----------------------
+
+1. **UpdateInstructor Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @InsID INT
+     - @InsName NVARCHAR(12) = NULL
+     - @InsEmail NVARCHAR(12) = NULL
+     - @InsPassword NVARCHAR(20) = NULL
+   - **Functionality:**
+     - Updates information for a non-manager instructor in the Person.Person table.
+     - Validates the manager's authorization and the existence of the specified instructor.
+     - Only non-manager instructors can be updated.
+
+2. **UpdateStudent Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @StudID INT
+     - @StudName NVARCHAR(12) = NULL
+     - @StudEmail NVARCHAR(12) = NULL
+     - @StudPassword NVARCHAR(20) = NULL
+   - **Functionality:**
+     - Updates information for a student in the Person.Person table.
+     - Validates the manager's authorization and the existence of the specified student.
+
+3. **UpdateCourse Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @CourseID INT
+     - @CourseName NVARCHAR(20) = NULL
+     - @Description NVARCHAR(2000) = NULL
+     - @MaxDegree INT = NULL
+     - @MinDegree INT = NULL
+     - @Duration INT = NULL
+   - **Functionality:**
+     - Updates information for a course in the Content.Course table.
+     - Validates the manager's authorization and the existence of the specified course.
+
+4. **UpdateClass Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @ClassID INT
+     - @ClassName NVARCHAR(10) = NULL
+   - **Functionality:**
+     - Updates information for a class in the Content.Class table.
+     - Validates the manager's authorization and the existence of the specified class.
+
+5. **UpdateInst_teach_cour_in_class Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @ClassID INT
+     - @CourseID INT
+     - @InsID INT
+     - @NewClassID INT
+     - @NewCourseID INT
+     - @NewInsID INT
+     - @EnrolledYear INT
+   - **Functionality:**
+     - Updates information for an instructor teaching a course in a class in the Content.Inst_teach_cour_in_class table.
+     - Validates the manager's authorization, the existence of the specified record, and the validity of new IDs.
+
+6. **UpdateBranch Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @BranID INT
+     - @NewBranName NVARCHAR(10)
+   - **Functionality:**
+     - Updates the branch name in the General.Branch table.
+     - Validates the manager's authorization and the existence of the specified branch.
+
+7. **UpdateDepartment Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @DepID INT
+     - @NewDepName NVARCHAR(10)
+   - **Functionality:**
+     - Updates the department name in the General.Department table.
+     - Validates the manager's authorization and the existence of the specified department.
+
+8. **UpdateTrack Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @TraID INT
+     - @NewTraName NVARCHAR(10)
+   - **Functionality:**
+     - Updates the track name in the General.Track table.
+     - Validates the manager's authorization and the existence of the specified track.
+
+9. **UpdateBran_has_Dep_has_Track Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @BranID INT
+     - @DepID INT
+     - @TraID INT
+     - @NewBranID INT
+     - @NewDepID INT
+     - @NewTraID INT
+   - **Functionality:**
+     - Updates branch, department, and track associations in the General.Bran_has_Dep_has_Track table.
+     - Validates the manager's authorization, the existence of the specified record, and the validity of new IDs.
+
+-----------------------
+Third Delete Procedure
+------------------------
+1. **DeleteStudent Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @StudID INT
+   - **Functionality:**
+     - Deletes a student from various related tables: Content.Stu_ans_Que_Ex, Stu_enrol_ex, Person.Student, and Person.Person.
+     - Validates the manager's authorization and the existence of the specified student.
+
+2. **DeleteInstructor Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @InsID INT
+   - **Functionality:**
+     - Deletes a non-manager instructor from various related tables: Person.Instructor, Content.Inst_teach_cour_in_class, and Person.Person.
+     - Validates the manager's authorization, the existence of the specified instructor, and checks if the instructor is not a manager.
+
+3. **DeleteCourse Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @CourseID INT
+   - **Functionality:**
+     - Deletes a course from various related tables: Content.Course, Content.Exam, and Content.Inst_teach_cour_in_class.
+     - Validates the manager's authorization and the existence of the specified course.
+
+4. **DeleteBranch Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @BranID INT
+   - **Functionality:**
+     - Deletes a branch from the General.Branch table.
+     - Validates the manager's authorization and the existence of the specified branch.
+
+5. **DeleteDepartment Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @DepID INT
+   - **Functionality:**
+     - Deletes a department from the General.Department table.
+     - Validates the manager's authorization and the existence of the specified department.
+
+6. **DeleteTrack Procedure:**
+   - **Parameters:**
+     - @ManagerID INT
+     - @TraID INT
+   - **Functionality:**
+     - Deletes a track from the General.Track table.
+     - Validates the manager's authorization and the existence of the specified track.

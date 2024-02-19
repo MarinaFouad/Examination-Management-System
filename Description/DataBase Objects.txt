@@ -1,0 +1,19 @@
+Schemas
+    General => that contains Department, Track and Branch data
+    Person => that contains Instractures, Managers an Students data
+    Content => that contains all remaining Tables/data
+
+Tables
+   Branch, Department and Track have 
+    Id auto-incremnt as unique identifier(Int)
+    and Name(NVARCHAR()) as columns.
+    represent the organization
+  
+  Bran_has_Dep_has_Track has BranID, DepID and TraID columns to represent 
+    the relation between the Branch, Department and Track Tables
+
+  Course has CourseID, CourseName, [Description],
+    MaxDegree, MinDegree, Duration columns
+
+  Person has the Columns of Instracture and Student together that represent 
+  that Instracture and Student have same attributes
